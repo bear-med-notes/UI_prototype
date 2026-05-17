@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mediora — UI Prototype (All Screens)</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,700&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── Base ── */
+:root {
+  --bg:#F8F5F0; --surface:#FFFFFF; --surface2:#F2EEE8; --surface3:#EAE5DE;
+  --border:#E2DDD6; --border2:#C8C0B8;
+  --ink:#1A1915; --ink2:#6B6560; --ink3:#A09890;
+  --accent:#C8553D; --accent-soft:#FAF0EC; --accent-border:#EAC4B8;
+  --blue:#4A6FA5; --blue-soft:#EBF0F8;
+  --green:#4A8060; --green-soft:#E8F3ED;
+  --yellow:#B88A30; --yellow-soft:#FBF4E0;
+  --admin:#1C2545;
+  --serif:"Fraunces",serif; --sans:"Noto Sans TC",sans-serif; --mono:"JetBrains Mono",monospace;
+  --radius:6px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:var(--sans);font-size:14px;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
+.hidden{display:none!important}
+button{cursor:pointer;font-family:var(--sans)}
+input,select,textarea{font-family:var(--sans)}
+a{text-decoration:none;color:inherit}
+
+/* ── Admin Bar ── */
+#admin-bar{
+  position:fixed;top:0;left:0;right:0;height:36px;z-index:1000;
+  background:var(--admin);color:white;display:flex;align-items:center;
+  padding:0 20px;gap:0;font-size:12px;
+}
+#admin-bar .ab-left{display:flex;align-items:center;gap:12px;flex:1}
+#admin-bar .ab-badge{background:var(--accent);padding:2px 8px;border-radius:3px;font-size:10px;font-family:var(--mono);letter-spacing:0.08em}
+#admin-bar .ab-btn{padding:4px 12px;border-radius:4px;border:1px solid rgba(255,255,255,0.2);background:transparent;color:white;font-size:11px;cursor:pointer;transition:background 0.15s}
+#admin-bar .ab-btn:hover{background:rgba(255,255,255,0.1)}
+#admin-bar .ab-btn.primary{background:var(--accent);border-color:var(--accent)}
+#admin-bar .ab-sep{width:1px;height:20px;background:rgba(255,255,255,0.15);margin:0 8px}
+#admin-bar .ab-right{display:flex;align-items:center;gap:8px}
+#admin-bar .ab-user{color:rgba(255,255,255,0.6);font-size:11px}
+body.is-admin{padding-top:36px}
+
+/* ── Page system ── */
+.page{min-height:100vh}
+
+/* ════════════════════════════════════
+   LANDING PAGE
+════════════════════════════════════ */
+.lp-nav{
+  position:sticky;top:0;background:rgba(248,245,240,0.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);z-index:100;
+  display:flex;align-items:center;padding:0 48px;height:60px;gap:0;
+}
+.lp-brand{font-family:var(--serif);font-size:20px;font-weight:500;margin-right:40px}
+.lp-brand span{color:var(--accent)}
+.lp-links{display:flex;gap:28px;flex:1}
+.lp-links a{font-size:13.5px;color:var(--ink2);transition:color 0.15s}
+.lp-links a:hover{color:var(--accent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:8px 18px;border-radius:var(--radius);font-size:13.5px;font-weight:500;border:none;transition:all 0.15s;cursor:pointer;gap:6px}
+.btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--ink2)}
+.btn-ghost:hover{border-color:var(--ink2);color:var(--ink)}
+.btn-primary{background:var(--accent);color:white}
+.btn-primary:hover{background:#B84835}
+.btn-outline{background:transparent;border:1.5px solid var(--accent);color:var(--accent)}
+.btn-outline:hover{background:var(--accent-soft)}
+.btn-lg{padding:12px 28px;font-size:15px}
+.btn-full{width:100%}
+
+.lp-hero{padding:96px 48px 80px;text-align:center;border-bottom:1px solid var(--border)}
+.lp-hero h1{font-family:var(--serif);font-size:72px;font-weight:300;line-height:1.05;letter-spacing:-0.03em;margin-bottom:20px}
+.lp-hero h1 em{font-style:italic;color:var(--accent)}
+.lp-hero p{font-size:18px;color:var(--ink2);max-width:580px;margin:0 auto 36px;line-height:1.65}
+.lp-hero-btns{display:flex;gap:12px;justify-content:center;margin-bottom:56px}
+.lp-hero-preview{
+  max-width:960px;margin:0 auto;background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;box-shadow:0 24px 64px -20px rgba(26,25,21,0.14);overflow:hidden;
+}
+.lp-preview-chrome{background:var(--surface2);padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.lp-dot{width:10px;height:10px;border-radius:50%}
+.lp-preview-content{display:grid;grid-template-columns:200px 1fr;height:280px}
+.lp-preview-sidebar{background:var(--surface2);border-right:1px solid var(--border);padding:16px 12px;font-size:12px}
+.lp-preview-main{padding:20px 28px;overflow:hidden}
+.preview-note-title{font-family:var(--serif);font-size:22px;font-weight:500;margin-bottom:12px}
+.preview-props{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.preview-tag{padding:2px 8px;border-radius:3px;font-size:11px;font-weight:500}
+.lp-features{padding:72px 48px;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;border-bottom:1px solid var(--border)}
+.lp-feature-card{padding:28px}
+.lp-feature-icon{font-size:28px;margin-bottom:16px}
+.lp-feature-title{font-family:var(--serif);font-size:20px;font-weight:500;margin-bottom:8px}
+.lp-feature-desc{font-size:13.5px;color:var(--ink2);line-height:1.65}
+.lp-pricing{padding:72px 48px;text-align:center;border-bottom:1px solid var(--border)}
+.lp-pricing h2{font-family:var(--serif);font-size:44px;font-weight:400;margin-bottom:8px}
+.lp-pricing-sub{color:var(--ink2);font-size:16px;margin-bottom:48px}
+.lp-pricing-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:640px;margin:0 auto}
+.pricing-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px;text-align:left}
+.pricing-card.featured{border-color:var(--accent);position:relative}
+.pc-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--accent);color:white;font-size:11px;font-family:var(--mono);padding:3px 14px;border-radius:12px;white-space:nowrap}
+.pc-name{font-family:var(--mono);font-size:10px;color:var(--ink3);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px}
+.pc-price{font-family:var(--serif);font-size:48px;font-weight:500;line-height:1;margin-bottom:4px}
+.pc-price sup{font-size:16px;font-family:var(--sans);vertical-align:super}
+.pc-period{font-size:13px;color:var(--ink3);margin-bottom:20px}
+.pc-features{list-style:none;margin-bottom:24px}
+.pc-features li{font-size:13px;color:var(--ink2);padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:8px}
+.pc-features li:last-child{border-bottom:none}
+.lp-footer{padding:40px 48px;text-align:center;color:var(--ink3);font-size:12px;font-family:var(--mono)}
+
+/* ════════════════════════════════════
+   AUTH PAGES
+════════════════════════════════════ */
+.auth-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg)}
+.auth-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:40px;width:400px;box-shadow:0 8px 24px -8px rgba(26,25,21,0.08)}
+.auth-logo{font-family:var(--serif);font-size:22px;font-weight:500;margin-bottom:28px;text-align:center}
+.auth-logo span{color:var(--accent)}
+.auth-title{font-family:var(--serif);font-size:26px;font-weight:400;margin-bottom:6px}
+.auth-sub{font-size:13px;color:var(--ink2);margin-bottom:24px}
+.oauth-btn{width:100%;padding:10px;border:1.5px solid var(--border2);border-radius:var(--radius);background:white;font-size:14px;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;margin-bottom:20px;transition:border-color 0.15s}
+.oauth-btn:hover{border-color:var(--ink2)}
+.divider{display:flex;align-items:center;gap:12px;margin-bottom:20px;color:var(--ink3);font-size:12px}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--border)}
+.form-field{margin-bottom:16px}
+.form-label{display:block;font-size:12px;color:var(--ink2);margin-bottom:6px;font-weight:500}
+.form-input{width:100%;padding:9px 12px;border:1.5px solid var(--border2);border-radius:var(--radius);font-size:14px;outline:none;transition:border-color 0.15s;background:white}
+.form-input:focus{border-color:var(--accent)}
+.form-link{font-size:12px;color:var(--accent);text-align:right;display:block;margin-top:4px}
+.auth-footer{text-align:center;margin-top:20px;font-size:13px;color:var(--ink2)}
+.auth-footer a{color:var(--accent)}
+
+/* ════════════════════════════════════
+   APP SHELL
+════════════════════════════════════ */
+#p-app{display:flex;height:100vh;overflow:hidden}
+.app-sidebar{
+  width:240px;min-width:240px;background:var(--surface2);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;transition:width 0.2s,min-width 0.2s;overflow:hidden;
+}
+.app-sidebar.collapsed{width:0;min-width:0}
+.sidebar-header{padding:16px 16px 8px;display:flex;align-items:center;justify-content:space-between}
+.sidebar-brand{font-family:var(--serif);font-size:17px;font-weight:500}
+.sidebar-brand span{color:var(--accent)}
+.sidebar-toggle-btn{padding:4px;border:none;background:transparent;color:var(--ink2);border-radius:4px;cursor:pointer;font-size:16px;line-height:1}
+.sidebar-toggle-btn:hover{background:var(--border)}
+.sidebar-search{padding:8px 12px;margin:4px 8px 8px;background:var(--surface);border:1.5px solid var(--border2);border-radius:var(--radius);font-size:13px;width:calc(100% - 16px);outline:none}
+.sidebar-search:focus{border-color:var(--accent)}
+.sidebar-nav{flex:1;overflow-y:auto;padding:0 8px}
+.sidebar-section-label{font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:0.15em;text-transform:uppercase;padding:12px 8px 4px}
+.nav-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:var(--radius);font-size:13px;color:var(--ink2);cursor:pointer;transition:all 0.12s;margin-bottom:1px}
+.nav-item:hover{background:var(--border);color:var(--ink)}
+.nav-item.active{background:var(--surface);color:var(--ink);font-weight:500;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.nav-item.sub{padding-left:24px;font-size:12.5px}
+.nav-item .nav-count{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--ink3);background:var(--surface3);padding:1px 5px;border-radius:3px}
+.nav-item .nav-icon{font-size:13px;min-width:16px}
+.sidebar-divider{height:1px;background:var(--border);margin:8px 0}
+.sidebar-bottom{padding:12px 8px}
+
+.app-main{flex:1;overflow-y:auto;display:flex;flex-direction:column}
+.app-topbar{
+  position:sticky;top:0;background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);padding:0 32px;height:52px;
+  display:flex;align-items:center;gap:12px;z-index:50;flex-shrink:0;
+}
+.topbar-toggle{border:none;background:transparent;padding:6px;border-radius:4px;cursor:pointer;color:var(--ink2);font-size:18px;line-height:1}
+.topbar-toggle:hover{background:var(--surface2)}
+.topbar-breadcrumb{font-size:13px;color:var(--ink3);display:flex;align-items:center;gap:6px}
+.topbar-breadcrumb span{color:var(--ink2);cursor:pointer}
+.topbar-breadcrumb span:hover{color:var(--accent)}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.user-chip{display:flex;align-items:center;gap:8px;padding:5px 12px;background:var(--surface2);border-radius:20px;font-size:12.5px;cursor:pointer;border:1px solid var(--border)}
+.user-avatar{width:22px;height:22px;border-radius:50%;background:var(--admin);color:white;display:grid;place-items:center;font-size:10px;font-weight:700}
+
+/* Notes List */
+.content-area{padding:32px}
+.content-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.content-title{font-family:var(--serif);font-size:30px;font-weight:400}
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;padding:12px 0;border-bottom:1px solid var(--border)}
+.filter-chip{padding:5px 12px;border:1.5px solid var(--border2);border-radius:16px;font-size:12px;background:white;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all 0.12s}
+.filter-chip:hover{border-color:var(--ink2)}
+.filter-chip.active{background:var(--ink);color:white;border-color:var(--ink)}
+.view-toggle{display:flex;gap:2px;background:var(--surface2);padding:3px;border-radius:var(--radius);border:1px solid var(--border)}
+.view-btn{padding:4px 10px;border-radius:4px;border:none;background:transparent;font-size:12px;cursor:pointer;color:var(--ink2)}
+.view-btn.active{background:white;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+
+/* Note cards (grid view) */
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.note-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;cursor:pointer;transition:all 0.15s}
+.note-card:hover{box-shadow:0 4px 16px -4px rgba(26,25,21,0.1);border-color:var(--border2);transform:translateY(-1px)}
+.note-card.locked{opacity:0.7}
+.note-card-title{font-size:15px;font-weight:600;margin-bottom:8px;line-height:1.35}
+.note-card-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.tag{display:inline-block;padding:2px 7px;border-radius:3px;font-size:11px;font-weight:500}
+.tag-pink{background:#FCE8E8;color:#884040}
+.tag-blue{background:#E8EFF8;color:#3A5A8A}
+.tag-green{background:#E8F2EC;color:#3A6B50}
+.tag-yellow{background:#FBF3DC;color:#8A6A20}
+.tag-orange{background:#FAEDDC;color:#8A5420}
+.tag-brown{background:#F0E8DC;color:#6B4830}
+.tag-purple{background:#EDE8F5;color:#5A3A90}
+.tag-gray{background:#EFEFEF;color:#5A5A5A}
+.note-card-footer{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--ink3)}
+.lock-badge{display:flex;align-items:center;gap:4px;color:var(--accent);font-size:11px;background:var(--accent-soft);padding:2px 7px;border-radius:3px}
+
+/* Note reader */
+.reader-layout{display:grid;grid-template-columns:1fr 220px;gap:0;flex:1}
+.reader-content{padding:40px 56px 80px;max-width:860px;border-right:1px solid var(--border)}
+.reader-toc{padding:24px 20px;position:sticky;top:52px;height:calc(100vh - 52px);overflow-y:auto}
+.reader-title{font-family:var(--serif);font-size:38px;font-weight:600;line-height:1.15;margin-bottom:24px;letter-spacing:-0.01em}
+.reader-props{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:32px;overflow:hidden;max-width:460px}
+.reader-prop{display:grid;grid-template-columns:130px 1fr;padding:8px 14px;border-bottom:1px solid var(--border);font-size:13px}
+.reader-prop:last-child{border-bottom:none}
+.reader-prop-key{color:var(--ink3);display:flex;align-items:center;gap:6px}
+.reader-heading-h1{font-family:var(--serif);font-size:24px;font-weight:600;background:var(--yellow-soft);padding:10px 16px;border-radius:4px;margin:24px 0 16px}
+.reader-para{font-size:14px;line-height:1.75;color:var(--ink);margin-bottom:12px}
+.reader-callout{background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:12px 16px;margin-bottom:16px;font-size:13.5px;display:flex;gap:10px}
+.reader-table{width:100%;border-collapse:collapse;font-size:13px;border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:16px}
+.reader-table th{background:var(--surface2);padding:10px 12px;text-align:left;border-bottom:1.5px solid var(--border2);border-right:1px solid var(--border);font-weight:600}
+.reader-table td{padding:10px 12px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);vertical-align:top;line-height:1.6}
+.reader-table th:last-child,.reader-table td:last-child{border-right:none}
+.txt-r{color:#C04040;font-weight:600}
+.txt-b{color:#3A5A9A;font-weight:600}
+.txt-g{color:#3A6A50;font-weight:600}
+.toc-label{font-family:var(--mono);font-size:10px;color:var(--ink3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px}
+.toc-item{font-size:12.5px;color:var(--ink2);padding:4px 0 4px 12px;border-left:2px solid var(--border);cursor:pointer;display:block;transition:all 0.12s}
+.toc-item:hover,.toc-item.active{color:var(--accent);border-color:var(--accent)}
+.toc-item.sub{padding-left:20px;font-size:12px}
+.reader-nav-bar{
+  position:sticky;bottom:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);
+  border-top:1px solid var(--border);padding:12px 56px;display:flex;justify-content:space-between;
+  align-items:center;font-size:13px;
+}
+.admin-edit-btn{position:fixed;bottom:24px;right:24px;background:var(--admin);color:white;padding:10px 18px;border-radius:var(--radius);border:none;cursor:pointer;font-size:13px;font-weight:500;box-shadow:0 4px 16px rgba(0,0,0,0.2);display:flex;align-items:center;gap:6px;z-index:200}
+
+/* Account page */
+.settings-layout{padding:40px}
+.settings-title{font-family:var(--serif);font-size:30px;font-weight:400;margin-bottom:32px}
+.settings-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px}
+.settings-section-header{padding:18px 24px;border-bottom:1px solid var(--border);font-weight:600;font-size:15px}
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--border);font-size:14px}
+.settings-row:last-child{border-bottom:none}
+.settings-row-label{color:var(--ink2);font-size:13px}
+.settings-row-val{font-weight:500}
+.plan-badge-large{display:inline-block;padding:4px 12px;background:var(--green-soft);color:var(--green);border-radius:4px;font-weight:600;font-size:13px;font-family:var(--mono)}
+
+/* Upgrade page */
+.upgrade-page{padding:40px;max-width:800px}
+
+/* ════════════════════════════════════
+   ADMIN PAGES
+════════════════════════════════════ */
+.admin-page{padding:32px}
+.admin-page-title{font-family:var(--serif);font-size:28px;font-weight:400;margin-bottom:4px}
+.admin-page-sub{font-size:13px;color:var(--ink2);margin-bottom:28px}
+.admin-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
+.admin-stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.admin-stat-num{font-family:var(--serif);font-size:36px;font-weight:500;margin-bottom:4px}
+.admin-stat-label{font-size:12px;color:var(--ink2)}
+.admin-table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;font-size:13px}
+.admin-table th{background:var(--surface2);padding:11px 16px;text-align:left;font-family:var(--mono);font-size:10.5px;color:var(--ink3);letter-spacing:0.08em;text-transform:uppercase;border-bottom:2px solid var(--border2)}
+.admin-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:middle}
+.admin-table tr:last-child td{border-bottom:none}
+.admin-table tr:hover td{background:var(--surface2)}
+.table-action-btn{padding:4px 10px;border-radius:4px;border:1.5px solid var(--border2);background:transparent;font-size:11.5px;cursor:pointer;color:var(--ink2)}
+.table-action-btn:hover{border-color:var(--accent);color:var(--accent)}
+.table-action-btn.danger:hover{border-color:#E05A5A;color:#E05A5A}
+.status-dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:6px}
+.status-dot.active{background:var(--green)}
+.status-dot.expired{background:var(--ink3)}
+.admin-upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.upload-zone{border:2px dashed var(--border2);border-radius:var(--radius);padding:40px;text-align:center;background:var(--surface);cursor:pointer;transition:all 0.15s}
+.upload-zone:hover{border-color:var(--accent);background:var(--accent-soft)}
+.upload-zone-icon{font-size:32px;margin-bottom:10px}
+.upload-zone-text{font-size:14px;color:var(--ink2);margin-bottom:4px}
+.upload-zone-hint{font-size:12px;color:var(--ink3)}
+.img-match-grid{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.img-thumb{width:72px;height:72px;border-radius:4px;border:1.5px solid var(--border2);background:var(--surface2);display:grid;place-items:center;font-size:10px;color:var(--ink3);font-family:var(--mono);text-align:center;padding:4px;position:relative;cursor:pointer}
+.img-thumb.ok{border-color:var(--green);background:var(--green-soft);color:var(--green)}
+.img-thumb.ok::after{content:"✓";position:absolute;top:-6px;right:-6px;background:var(--green);color:white;width:16px;height:16px;border-radius:50%;font-size:10px;display:grid;place-items:center}
+.img-thumb.missing{border-color:var(--accent);background:var(--accent-soft)}
+
+/* ════════════════════════════════════
+   SCREEN INDICATOR
+════════════════════════════════════ */
+.screen-nav{
+  position:fixed;bottom:16px;left:50%;transform:translateX(-50%);
+  background:rgba(28,36,69,0.92);backdrop-filter:blur(8px);
+  border-radius:24px;padding:8px 20px;display:flex;gap:6px;align-items:center;
+  z-index:999;box-shadow:0 8px 24px rgba(0,0,0,0.2);flex-wrap:wrap;max-width:95vw;justify-content:center;
+}
+.screen-nav button{
+  padding:5px 11px;border-radius:16px;border:none;background:rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.7);font-size:11px;cursor:pointer;transition:all 0.15s;white-space:nowrap;font-family:var(--mono);
+}
+.screen-nav button:hover,.screen-nav button.active{background:var(--accent);color:white}
+.screen-nav .sn-sep{color:rgba(255,255,255,0.2);font-size:10px}
+</style>
+</head>
+<body>
+
+<!-- ══════ ADMIN BAR (shown when admin) ══════ -->
+<div id="admin-bar" class="hidden">
+  <div class="ab-left">
+    <span class="ab-badge">ADMIN</span>
+    <span class="ab-sep"></span>
+    <button class="ab-btn" onclick="showSub('admin-dashboard')">管理後台</button>
+    <button class="ab-btn" onclick="showSub('admin-notes')">筆記管理</button>
+    <button class="ab-btn" onclick="showSub('admin-users')">用戶管理</button>
+    <span id="admin-edit-ctx"></span>
+  </div>
+  <div class="ab-right">
+    <span class="ab-user">已登入為 Leo（管理員）</span>
+    <button class="ab-btn primary" onclick="toggleAdmin()">退出管理員模式</button>
+  </div>
+</div>
+
+<!-- ══════ SCREEN NAV (prototype navigation) ══════ -->
+<div class="screen-nav">
+  <button onclick="goPage('landing')" id="snav-landing">Landing</button>
+  <button onclick="goPage('login')" id="snav-login">登入</button>
+  <button onclick="goPage('register')" id="snav-register">申請帳號</button>
+  <span class="sn-sep">|</span>
+  <button onclick="goApp('notes-list')" id="snav-notes-list">筆記列表</button>
+  <button onclick="goApp('note-reader')" id="snav-note-reader">筆記閱讀</button>
+  <button onclick="goApp('account')" id="snav-account">帳戶設定</button>
+  <button onclick="goApp('upgrade')" id="snav-upgrade">升級訂閱</button>
+  <span class="sn-sep">|</span>
+  <button onclick="goAdmin('admin-dashboard')" id="snav-admin-dashboard">管理後台</button>
+  <button onclick="goAdmin('admin-notes')" id="snav-admin-notes">筆記管理</button>
+  <button onclick="goAdmin('admin-upload')" id="snav-admin-upload">上傳筆記</button>
+  <button onclick="goAdmin('admin-users')" id="snav-admin-users">用戶管理</button>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: LANDING
+══════════════════════════════════════ -->
+<div id="p-landing" class="page">
+  <nav class="lp-nav">
+    <div class="lp-brand">Mediora<span>.</span></div>
+    <div class="lp-links">
+      <a href="#">功能介紹</a>
+      <a href="#">定價</a>
+      <a href="#">關於</a>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-ghost" onclick="goPage('login')">登入</button>
+      <button class="btn btn-primary" onclick="goPage('register')">立即試用 →</button>
+    </div>
+  </nav>
+
+  <div class="lp-hero">
+    <h1>醫師國考筆記<br><em>一站搞定</em></h1>
+    <p>整合 13 科 180+ 頁精華筆記，Notion 級排版體驗，比參考書便宜 4 倍，支援科別篩選和重要性標記。</p>
+    <div class="lp-hero-btns">
+      <button class="btn btn-primary btn-lg" onclick="goPage('login')">免費試用部分筆記</button>
+      <button class="btn btn-outline btn-lg">查看定價方案</button>
+    </div>
+    <div class="lp-hero-preview">
+      <div class="lp-preview-chrome">
+        <div class="lp-dot" style="background:#E07A5F"></div>
+        <div class="lp-dot" style="background:#E5C16C"></div>
+        <div class="lp-dot" style="background:#81B29A"></div>
+        <div style="margin-left:12px;font-family:var(--mono);font-size:11px;color:var(--ink3)">mediora.app/notes/腎上腺疾病</div>
+      </div>
+      <div class="lp-preview-content">
+        <div class="lp-preview-sidebar" style="background:var(--surface2)">
+          <div style="font-size:13px;font-weight:600;margin-bottom:12px;font-family:var(--serif)">Mediora<span style="color:var(--accent)">.</span></div>
+          <div style="font-size:11px;color:var(--ink3);margin-bottom:6px">全部筆記 · 180 篇</div>
+          <div style="font-size:11px;font-weight:600;color:var(--ink);background:var(--surface);padding:5px 8px;border-radius:4px;margin-bottom:2px">❤️ 心臟內科 (8)</div>
+          <div style="font-size:11px;color:var(--ink2);padding:5px 8px;margin-bottom:2px">🫁 胸腔內科 (6)</div>
+          <div style="font-size:11px;color:var(--ink2);padding:5px 8px;margin-bottom:2px">🫘 腎臟內科 (9)</div>
+          <div style="font-size:11px;color:var(--ink2);padding:5px 8px;margin-bottom:2px">👶 小兒科 (18)</div>
+          <div style="font-size:11px;color:var(--ink3);padding:5px 8px">…更多科別</div>
+        </div>
+        <div class="lp-preview-main">
+          <div class="preview-note-title">腎上腺疾病</div>
+          <div class="preview-props">
+            <span class="preview-tag tag-pink">腎臟內科</span>
+            <span class="preview-tag tag-blue">醫學(三)</span>
+            <span class="preview-tag tag-yellow">常考</span>
+          </div>
+          <div style="background:var(--yellow-soft);padding:8px 12px;border-radius:4px;font-size:13px;font-weight:600;margin-bottom:10px">第一部分：原發性醛固酮症</div>
+          <div style="font-size:12px;color:var(--ink2);line-height:1.65">診斷三步驟：① ARR 篩查 → ② 鹽水負荷試驗確認 → ③ <span style="color:var(--blue);font-weight:600">腎上腺靜脈取樣</span>確定病側。<br>治療：單側腺瘤 → <span style="color:var(--accent);font-weight:600">腹腔鏡切除</span>；雙側增生 → spironolactone</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-features">
+    <div class="lp-feature-card">
+      <div class="lp-feature-icon">📖</div>
+      <div class="lp-feature-title">Notion 級排版</div>
+      <div class="lp-feature-desc">彩色標記、嵌套列表、比較表格、折疊區塊，和你在 Notion 看到的一模一樣，在任何裝置流暢閱讀。</div>
+    </div>
+    <div class="lp-feature-card">
+      <div class="lp-feature-icon">🏷️</div>
+      <div class="lp-feature-title">結構化篩選</div>
+      <div class="lp-feature-desc">按科別、考卷、重要性三層篩選。想快速找「小兒科必讀」？一秒搞定，不用翻目錄。</div>
+    </div>
+    <div class="lp-feature-card">
+      <div class="lp-feature-icon">🔄</div>
+      <div class="lp-feature-title">持續更新</div>
+      <div class="lp-feature-desc">每次考試後根據新考題更新重點。不像參考書買了就是定版，你的訂閱期內享有所有更新。</div>
+    </div>
+  </div>
+
+  <div class="lp-pricing">
+    <h2>簡單透明的定價</h2>
+    <p class="lp-pricing-sub">不需要月月煩惱，一次付款享有一年完整存取。</p>
+    <div class="lp-pricing-cards">
+      <div class="pricing-card featured">
+        <div class="pc-badge">早鳥限定 · 前50名</div>
+        <div class="pc-name">早鳥方案</div>
+        <div class="pc-price"><sup>NT$</sup>1,899</div>
+        <div class="pc-period">12 個月完整存取</div>
+        <ul class="pc-features">
+          <li>✓ 全部 180+ 頁筆記解鎖</li>
+          <li>✓ 所有科別完整覆蓋</li>
+          <li>✓ 科別 / 考卷 / 重要性篩選</li>
+          <li>✓ 考後筆記自動更新</li>
+        </ul>
+        <button class="btn btn-primary btn-full">立即搶購早鳥</button>
+      </div>
+      <div class="pricing-card">
+        <div class="pc-name">標準方案</div>
+        <div class="pc-price"><sup>NT$</sup>2,399</div>
+        <div class="pc-period">12 個月完整存取</div>
+        <ul class="pc-features">
+          <li>✓ 全部 180+ 頁筆記解鎖</li>
+          <li>✓ 所有科別完整覆蓋</li>
+          <li>✓ 科別 / 考卷 / 重要性篩選</li>
+          <li>✓ 考後筆記自動更新</li>
+        </ul>
+        <button class="btn btn-outline btn-full">選擇標準方案</button>
+      </div>
+    </div>
+    <div style="margin-top:24px;font-size:13px;color:var(--ink3)">✦ 部分筆記永久免費，無需付款即可試用品質</div>
+  </div>
+  <div class="lp-footer">MEDIORA · 醫師國考筆記平台 · ©2026</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: LOGIN
+══════════════════════════════════════ -->
+<div id="p-login" class="page hidden">
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-logo">Mediora<span>.</span></div>
+      <div class="auth-title">歡迎回來</div>
+      <div class="auth-sub">登入你的帳號以繼續閱讀</div>
+      <button class="oauth-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        使用 Google 帳號登入
+      </button>
+      <div class="divider">或使用電子郵件</div>
+      <div class="form-field">
+        <label class="form-label">電子郵件</label>
+        <input class="form-input" type="email" placeholder="your@email.com">
+      </div>
+      <div class="form-field">
+        <label class="form-label">密碼</label>
+        <input class="form-input" type="password" placeholder="••••••••">
+        <a class="form-link" href="#">忘記密碼？</a>
+      </div>
+      <button class="btn btn-primary btn-full" style="margin-top:8px" onclick="goApp('notes-list')">登入</button>
+      <div class="auth-footer">還沒有帳號？<a onclick="goPage('register')">立即申請</a></div>
+      <div style="text-align:center;margin-top:16px">
+        <button class="btn btn-ghost" style="font-size:12px" onclick="goAdmin('admin-dashboard')">以管理員身份登入（Prototype）</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: REGISTER
+══════════════════════════════════════ -->
+<div id="p-register" class="page hidden">
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-logo">Mediora<span>.</span></div>
+      <div class="auth-title">建立帳號</div>
+      <div class="auth-sub">免費開始，隨時可升級訂閱</div>
+      <button class="oauth-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        使用 Google 帳號申請
+      </button>
+      <div class="divider">或使用電子郵件</div>
+      <div class="form-field">
+        <label class="form-label">電子郵件</label>
+        <input class="form-input" type="email" placeholder="your@email.com">
+      </div>
+      <div class="form-field">
+        <label class="form-label">密碼</label>
+        <input class="form-input" type="password" placeholder="至少 8 位數">
+      </div>
+      <div class="form-field">
+        <label class="form-label">確認密碼</label>
+        <input class="form-input" type="password" placeholder="再輸入一次">
+      </div>
+      <div style="font-size:12px;color:var(--ink3);margin-bottom:16px">申請即代表同意<a style="color:var(--accent)">服務條款</a>和<a style="color:var(--accent)">隱私政策</a>。本平台筆記受版權保護，禁止複製轉載。</div>
+      <button class="btn btn-primary btn-full" onclick="goApp('notes-list')">建立帳號</button>
+      <div class="auth-footer">已有帳號？<a onclick="goPage('login')">立即登入</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: APP SHELL
+══════════════════════════════════════ -->
+<div id="p-app" class="page hidden" style="display:none">
+  <!-- Sidebar -->
+  <div class="app-sidebar" id="app-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">Mediora<span>.</span></div>
+      <button class="sidebar-toggle-btn" onclick="toggleSidebar()">☰</button>
+    </div>
+    <input class="sidebar-search" placeholder="🔍 搜尋筆記...">
+    <div class="sidebar-nav">
+      <div class="nav-item active" onclick="showSub('notes-list')">
+        <span class="nav-icon">📚</span>所有筆記
+        <span class="nav-count">180</span>
+      </div>
+      <div class="nav-item" onclick="showSub('notes-list')">
+        <span class="nav-icon">⭐</span>收藏
+      </div>
+      <div class="sidebar-section-label">科別</div>
+      <div class="nav-item" onclick="showSub('notes-list')"><span class="nav-icon">❤️</span>心臟內科<span class="nav-count">8</span></div>
+      <div class="nav-item" onclick="showSub('notes-list')"><span class="nav-icon">🫁</span>胸腔內科<span class="nav-count">6</span></div>
+      <div class="nav-item" onclick="showSub('notes-list')"><span class="nav-icon">🍽️</span>腸胃內科<span class="nav-count">12</span></div>
+      <div class="nav-item" onclick="showSub('notes-list')"><span class="nav-icon">🔬</span>新陳代謝科<span class="nav-count">8</span></div>
+      <div class="nav-item" onclick="showSub('notes-list')"><span class="nav-icon">🫘</span>腎臟內科<span class="nav-count">9</span></div>
+      <div class="nav-item" onclick="showSub('notes-list')"><span class="nav-icon">🦴</span>風濕免疫科<span class="nav-count">5</span></div>
+      <div class="nav-item" onclick="showSub('notes-list')"><span class="nav-icon">🩸</span>血液腫瘤科<span class="nav-count">7</span></div>
+      <div class="nav-item" onclick="showSub('notes-list')"><span class="nav-icon">👶</span>小兒科<span class="nav-count">18</span></div>
+      <div class="nav-item" onclick="showSub('notes-list')"><span class="nav-icon">🌿</span>皮膚科<span class="nav-count">3</span></div>
+      <div class="nav-item" onclick="showSub('notes-list')"><span class="nav-icon">🧠</span>精神科<span class="nav-count">8</span></div>
+      <div class="nav-item" onclick="showSub('notes-list')"><span class="nav-icon">⚡</span>神經內科<span class="nav-count">10</span></div>
+      <div class="nav-item" onclick="showSub('notes-list')"><span class="nav-icon">👩</span>婦產科<span class="nav-count">12</span></div>
+      <div class="nav-item" onclick="showSub('notes-list')"><span class="nav-icon">💉</span>麻醉科<span class="nav-count">4</span></div>
+      <div class="sidebar-divider"></div>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="nav-item" onclick="showSub('account')"><span class="nav-icon">⚙️</span>帳戶設定</div>
+      <div class="nav-item" onclick="showSub('upgrade')" style="color:var(--accent)"><span class="nav-icon">💳</span>升級訂閱</div>
+      <div class="nav-item" onclick="goPage('landing')"><span class="nav-icon">↩</span>登出</div>
+    </div>
+  </div>
+
+  <!-- Main content area -->
+  <div class="app-main" id="app-main">
+    <!-- Shared topbar -->
+    <div class="app-topbar">
+      <button class="topbar-toggle" onclick="toggleSidebar()">☰</button>
+      <div class="topbar-breadcrumb" id="topbar-bc">
+        <span onclick="showSub('notes-list')">所有筆記</span>
+      </div>
+      <div class="topbar-right">
+        <div class="user-chip" onclick="showSub('account')">
+          <div class="user-avatar">L</div>
+          Leo · <span style="color:var(--green)">Premium</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sub: Notes List -->
+    <div id="sp-notes-list" class="sub-page">
+      <div class="content-area">
+        <div class="content-header">
+          <div class="content-title">所有筆記</div>
+          <div class="view-toggle">
+            <button class="view-btn active">☰ 清單</button>
+            <button class="view-btn">▦ 卡片</button>
+          </div>
+        </div>
+        <div class="filter-bar">
+          <span style="font-size:12px;color:var(--ink2);margin-right:4px">篩選：</span>
+          <div class="filter-chip active">科別：腎臟內科 ✕</div>
+          <div class="filter-chip">考卷 ▾</div>
+          <div class="filter-chip">重要性 ▾</div>
+          <div class="filter-chip">+ 更多</div>
+        </div>
+        <div class="notes-grid">
+          <div class="note-card" onclick="showSub('note-reader')">
+            <div class="note-card-title">腎上腺疾病</div>
+            <div class="note-card-tags"><span class="tag tag-pink">腎臟內科</span><span class="tag tag-blue">醫學(三)</span><span class="tag tag-yellow">常考</span></div>
+            <div class="note-card-footer"><span>原發性醛固酮症、庫欣氏症…</span><span>5/11</span></div>
+          </div>
+          <div class="note-card" onclick="showSub('note-reader')">
+            <div class="note-card-title">酸鹼平衡</div>
+            <div class="note-card-tags"><span class="tag tag-pink">腎臟內科</span><span class="tag tag-blue">醫學(三)</span><span class="tag tag-orange">必讀</span></div>
+            <div class="note-card-footer"><span>Henderson-Hasselbalch…</span><span>5/11</span></div>
+          </div>
+          <div class="note-card" onclick="showSub('note-reader')">
+            <div class="note-card-title">急性腎損傷 (AKI)</div>
+            <div class="note-card-tags"><span class="tag tag-pink">腎臟內科</span><span class="tag tag-blue">醫學(三)</span><span class="tag tag-yellow">常考</span></div>
+            <div class="note-card-footer"><span>AKIN/KDIGO 分期標準…</span><span>5/9</span></div>
+          </div>
+          <div class="note-card" onclick="showSub('note-reader')">
+            <div class="note-card-title">慢性腎臟病 (CKD)</div>
+            <div class="note-card-tags"><span class="tag tag-pink">腎臟內科</span><span class="tag tag-blue">醫學(三)</span><span class="tag tag-yellow">常考</span></div>
+            <div class="note-card-footer"><span>eGFR 分期、併發症…</span><span>5/16</span></div>
+          </div>
+          <div class="note-card locked">
+            <div class="note-card-title">腎結石</div>
+            <div class="note-card-tags"><span class="tag tag-pink">腎臟內科</span><span class="tag tag-blue">醫學(三)</span><span class="tag tag-gray">偶爾</span></div>
+            <div class="note-card-footer"><span style="color:var(--ink3)">需升級以解鎖</span><span class="lock-badge">🔒 付費</span></div>
+          </div>
+          <div class="note-card locked">
+            <div class="note-card-title">腎臟移植</div>
+            <div class="note-card-tags"><span class="tag tag-pink">腎臟內科</span><span class="tag tag-blue">醫學(三)</span><span class="tag tag-gray">偶爾</span></div>
+            <div class="note-card-footer"><span style="color:var(--ink3)">需升級以解鎖</span><span class="lock-badge">🔒 付費</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sub: Note Reader -->
+    <div id="sp-note-reader" class="sub-page hidden">
+      <div class="reader-layout">
+        <div class="reader-content">
+          <div class="reader-title">腎上腺疾病</div>
+          <div class="reader-props">
+            <div class="reader-prop"><div class="reader-prop-key">↗ 上級項目</div><div><span style="text-decoration:underline dotted;cursor:pointer">內分泌系統</span></div></div>
+            <div class="reader-prop"><div class="reader-prop-key">⊙ 科別</div><div><span class="tag tag-pink">腎臟內科</span></div></div>
+            <div class="reader-prop"><div class="reader-prop-key">≡ 考卷</div><div><span class="tag tag-blue">醫學(三)</span></div></div>
+            <div class="reader-prop"><div class="reader-prop-key">⊙ 重要性</div><div><span class="tag tag-yellow">常考</span></div></div>
+          </div>
+          <div class="reader-heading-h1">第一部分：原發性醛固酮症 (Primary Aldosteronism)</div>
+          <div class="reader-callout"><span>💡</span><span>Conn's syndrome = 單側腺瘤（最常見）；雙側增生約佔 60%。診斷前先停用 ARB/ACEI/利尿劑至少 4 週。</span></div>
+          <table class="reader-table">
+            <thead><tr><th style="width:22%">病因類型</th><th style="width:38%">診斷要點</th><th>關鍵治療</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><strong>單側腺瘤</strong><br><span style="font-size:11px;color:var(--ink3)">Conn's</span></td>
+                <td>ARR > <span class="txt-r">30</span>；鹽水負荷後 Aldo > <span class="txt-r">10 ng/dL</span>；金標準：<span class="txt-b">腎上腺靜脈取樣</span></td>
+                <td><span class="txt-g">腹腔鏡切除</span>，術前先用 spiro 控制血壓</td>
+              </tr>
+              <tr>
+                <td><strong>雙側增生</strong></td>
+                <td>AVS 顯示雙側分泌；影像通常呈雙側腎上腺輕度增大</td>
+                <td><span class="txt-b">Spironolactone</span> 長期口服；監測 K⁺</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="reader-heading-h1" style="background:var(--green-soft)">第二部分：庫欣氏症候群</div>
+          <div class="reader-para">庫欣氏症 (<span class="txt-r">Hypercortisolism</span>) 依病因可分為 ACTH 依賴型（垂體腫瘤、異位 ACTH）和 ACTH 非依賴型（腎上腺腫瘤）。</div>
+          <div style="margin-top:16px;padding:12px;background:var(--surface2);border-radius:4px;font-family:var(--mono);font-size:11px;color:var(--ink3)">© 本筆記受版權保護 · Leo · Mediora · 2026-05-17</div>
+        </div>
+        <div class="reader-toc">
+          <div class="toc-label">目錄</div>
+          <a class="toc-item active">原發性醛固酮症</a>
+          <a class="toc-item sub">病因分類</a>
+          <a class="toc-item sub">診斷流程</a>
+          <a class="toc-item sub">治療原則</a>
+          <a class="toc-item">庫欣氏症候群</a>
+          <a class="toc-item sub">鑑別診斷</a>
+          <a class="toc-item sub">Dexamethasone 抑制</a>
+          <a class="toc-item">嗜鉻細胞瘤</a>
+          <a class="toc-item sub">三聯症</a>
+          <a class="toc-item sub">術前準備</a>
+          <a class="toc-item">腎上腺意外瘤</a>
+          <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border)">
+            <div class="toc-label">相關筆記</div>
+            <a class="toc-item" onclick="showSub('note-reader')">電解質失衡</a>
+            <a class="toc-item" onclick="showSub('note-reader')">垂體疾病</a>
+          </div>
+        </div>
+      </div>
+      <div class="reader-nav-bar">
+        <button class="btn btn-ghost" style="font-size:13px">← 上一篇：甲狀腺疾病</button>
+        <span style="font-size:12px;color:var(--ink3)">腎臟內科 3 / 9</span>
+        <button class="btn btn-ghost" style="font-size:13px">下一篇：酸鹼平衡 →</button>
+      </div>
+      <!-- Admin edit button (shown when admin) -->
+      <button id="admin-edit-fab" class="admin-edit-btn hidden" onclick="showSub('admin-upload')">✏️ 編輯此頁</button>
+    </div>
+
+    <!-- Sub: Account -->
+    <div id="sp-account" class="sub-page hidden">
+      <div class="settings-layout">
+        <div class="settings-title">帳戶設定</div>
+        <div class="settings-section">
+          <div class="settings-section-header">個人資料</div>
+          <div class="settings-row"><div><div>電子郵件</div><div class="settings-row-label">用於登入與通知</div></div><div class="settings-row-val">leo@example.com</div></div>
+          <div class="settings-row"><div><div>姓名</div></div><div><input class="form-input" value="Leo" style="width:200px"></div></div>
+          <div class="settings-row"><div><div>密碼</div></div><button class="btn btn-ghost">變更密碼</button></div>
+        </div>
+        <div class="settings-section">
+          <div class="settings-section-header">訂閱狀態</div>
+          <div class="settings-row"><div><div>目前方案</div></div><div><span class="plan-badge-large">PREMIUM</span></div></div>
+          <div class="settings-row"><div><div>存取有效期</div><div class="settings-row-label">到期後需重新購買</div></div><div class="settings-row-val">2027年 5月 17日</div></div>
+          <div class="settings-row"><div><div>付款記錄</div></div><div style="font-size:13px;color:var(--ink2)">2026-05-17 · 早鳥方案 NT$1,899 · 藍新信用卡</div></div>
+          <div class="settings-row"><div></div><button class="btn btn-ghost" onclick="showSub('upgrade')">管理訂閱</button></div>
+        </div>
+        <div class="settings-section">
+          <div class="settings-section-header">通知設定</div>
+          <div class="settings-row"><div><div>筆記更新通知</div><div class="settings-row-label">當有新筆記或重大更新時</div></div><div><input type="checkbox" checked style="width:18px;height:18px"></div></div>
+          <div class="settings-row"><div><div>考前提醒</div><div class="settings-row-label">考試前 4 週自動提醒</div></div><div><input type="checkbox" checked style="width:18px;height:18px"></div></div>
+        </div>
+        <div class="settings-section" style="border-color:#E0B0B0">
+          <div class="settings-section-header" style="color:#C05050">危險區域</div>
+          <div class="settings-row"><div><div>刪除帳號</div><div class="settings-row-label">此操作不可撤銷</div></div><button class="btn" style="border:1.5px solid #E05A5A;color:#E05A5A;background:transparent">刪除我的帳號</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sub: Upgrade -->
+    <div id="sp-upgrade" class="sub-page hidden">
+      <div class="upgrade-page">
+        <div class="settings-title">升級訂閱</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px">
+          <div class="pricing-card featured">
+            <div class="pc-badge">早鳥限定 · 剩餘 23 名</div>
+            <div class="pc-name">早鳥方案</div>
+            <div class="pc-price"><sup>NT$</sup>1,899</div>
+            <div class="pc-period">12 個月完整存取</div>
+            <ul class="pc-features">
+              <li>✓ 全部 180+ 頁筆記解鎖</li>
+              <li>✓ 所有科別完整覆蓋</li>
+              <li>✓ 考後筆記持續更新</li>
+              <li>✓ 比參考書便宜 4 倍以上</li>
+            </ul>
+            <button class="btn btn-primary btn-full">立即購買 NT$1,899</button>
+            <div style="text-align:center;font-size:11px;color:var(--ink3);margin-top:8px">藍新科技安全付款 · 信用卡 / ATM / 超商</div>
+          </div>
+          <div class="pricing-card">
+            <div class="pc-name">標準方案</div>
+            <div class="pc-price"><sup>NT$</sup>2,399</div>
+            <div class="pc-period">12 個月完整存取</div>
+            <ul class="pc-features">
+              <li>✓ 全部 180+ 頁筆記解鎖</li>
+              <li>✓ 所有科別完整覆蓋</li>
+              <li>✓ 考後筆記持續更新</li>
+              <li>✓ 比參考書便宜 3 倍以上</li>
+            </ul>
+            <button class="btn btn-outline btn-full">選擇標準方案</button>
+          </div>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;font-size:13px;color:var(--ink2);line-height:1.7">
+          <strong style="color:var(--ink)">常見問題</strong><br><br>
+          <strong>可以退款嗎？</strong>購買後 7 天內若有問題可申請退款。<br>
+          <strong>到期後怎麼辦？</strong>帳號保留，但付費筆記無法閱讀，需重新購買。<br>
+          <strong>支援什麼付款方式？</strong>信用卡、ATM 轉帳、超商代碼（藍新科技）。<br>
+          <strong>筆記何時更新？</strong>每次考試後約 2–4 週內更新。
+        </div>
+      </div>
+    </div>
+
+    <!-- Sub: Admin Dashboard -->
+    <div id="sp-admin-dashboard" class="sub-page hidden">
+      <div class="admin-page">
+        <div class="admin-page-title">管理後台</div>
+        <div class="admin-page-sub">歡迎回來，Leo。以下是平台即時狀態。</div>
+        <div class="admin-stats">
+          <div class="admin-stat"><div class="admin-stat-num" style="color:var(--blue)">47</div><div class="admin-stat-label">付費用戶總數</div></div>
+          <div class="admin-stat"><div class="admin-stat-num" style="color:var(--green)">42</div><div class="admin-stat-label">有效訂閱中</div></div>
+          <div class="admin-stat"><div class="admin-stat-num" style="color:var(--accent)">180</div><div class="admin-stat-label">筆記頁面數</div></div>
+          <div class="admin-stat"><div class="admin-stat-num" style="color:var(--yellow)">NT$84,153</div><div class="admin-stat-label">累計收入</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div>
+            <div style="font-weight:600;margin-bottom:12px;font-size:14px">快速操作</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-primary" onclick="showSub('admin-upload')" style="justify-content:flex-start">＋ 上傳新筆記</button>
+              <button class="btn btn-ghost" onclick="showSub('admin-notes')" style="justify-content:flex-start">📋 管理所有筆記</button>
+              <button class="btn btn-ghost" onclick="showSub('admin-users')" style="justify-content:flex-start">👥 管理用戶</button>
+            </div>
+          </div>
+          <div>
+            <div style="font-weight:600;margin-bottom:12px;font-size:14px">最近活動</div>
+            <div style="font-size:13px;color:var(--ink2)">
+              <div style="padding:8px 0;border-bottom:1px solid var(--border)">🆕 新用戶 chen**@gmail.com 購買早鳥 · 10分鐘前</div>
+              <div style="padding:8px 0;border-bottom:1px solid var(--border)">📝 筆記「失智症」已更新 · 1小時前</div>
+              <div style="padding:8px 0;border-bottom:1px solid var(--border)">🆕 新用戶 wang**@gmail.com 購買標準 · 3小時前</div>
+              <div style="padding:8px 0">📝 筆記「物質相關疾患」已新增 · 5小時前</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sub: Admin Notes -->
+    <div id="sp-admin-notes" class="sub-page hidden">
+      <div class="admin-page">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+          <div class="admin-page-title">筆記管理</div>
+          <button class="btn btn-primary" onclick="showSub('admin-upload')">＋ 上傳新筆記</button>
+        </div>
+        <div class="admin-page-sub">點選標題可編輯，可切換免費/付費狀態。</div>
+        <table class="admin-table">
+          <thead><tr><th>標題</th><th>科別</th><th>重要性</th><th>狀態</th><th>最後更新</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr>
+              <td onclick="showSub('admin-upload')" style="cursor:pointer;color:var(--blue);font-weight:500">腎上腺疾病</td>
+              <td><span class="tag tag-pink">腎臟內科</span></td>
+              <td><span class="tag tag-yellow">常考</span></td>
+              <td><span class="tag tag-green">付費</span></td>
+              <td style="color:var(--ink2)">2026-05-11</td>
+              <td><button class="table-action-btn">編輯</button> <button class="table-action-btn">切換免費</button> <button class="table-action-btn danger">刪除</button></td>
+            </tr>
+            <tr>
+              <td style="cursor:pointer;color:var(--blue);font-weight:500">酸鹼平衡</td>
+              <td><span class="tag tag-pink">腎臟內科</span></td>
+              <td><span class="tag tag-orange">必讀</span></td>
+              <td><span style="background:var(--green-soft);color:var(--green);padding:2px 7px;border-radius:3px;font-size:11px">免費</span></td>
+              <td style="color:var(--ink2)">2026-05-11</td>
+              <td><button class="table-action-btn">編輯</button> <button class="table-action-btn">切換付費</button> <button class="table-action-btn danger">刪除</button></td>
+            </tr>
+            <tr>
+              <td style="cursor:pointer;color:var(--blue);font-weight:500">失智症</td>
+              <td><span class="tag tag-purple">神經內科</span></td>
+              <td><span class="tag tag-yellow">常考</span></td>
+              <td><span class="tag tag-green">付費</span></td>
+              <td style="color:var(--ink2)">2026-05-17</td>
+              <td><button class="table-action-btn">編輯</button> <button class="table-action-btn">切換免費</button> <button class="table-action-btn danger">刪除</button></td>
+            </tr>
+            <tr>
+              <td style="cursor:pointer;color:var(--blue);font-weight:500">物質相關疾患</td>
+              <td><span class="tag tag-brown">精神科</span></td>
+              <td><span class="tag tag-gray">偶爾</span></td>
+              <td><span class="tag tag-green">付費</span></td>
+              <td style="color:var(--ink2)">2026-05-17</td>
+              <td><button class="table-action-btn">編輯</button> <button class="table-action-btn">切換免費</button> <button class="table-action-btn danger">刪除</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Sub: Admin Upload -->
+    <div id="sp-admin-upload" class="sub-page hidden">
+      <div class="admin-page">
+        <div class="admin-page-title">上傳 / 更新筆記</div>
+        <div class="admin-page-sub">貼上 Notion 匯出的 HTML，系統自動偵測圖片並引導上傳。</div>
+        <div class="admin-upload-grid">
+          <div>
+            <div style="font-weight:600;margin-bottom:12px">① HTML 內容</div>
+            <div class="upload-zone" style="margin-bottom:16px">
+              <div class="upload-zone-icon">⤓</div>
+              <div class="upload-zone-text">拖曳 .html 檔案或點擊選取</div>
+              <div class="upload-zone-hint">或直接貼上 HTML 原始碼</div>
+            </div>
+            <textarea style="width:100%;height:100px;border:1.5px solid var(--border2);border-radius:var(--radius);padding:10px;font-family:var(--mono);font-size:12px;resize:vertical;outline:none" placeholder="貼上 HTML 原始碼..."></textarea>
+            <div style="margin-top:16px;font-weight:600;margin-bottom:10px">② 圖片配對 <span style="font-size:12px;color:var(--ink2);font-weight:400">（偵測到 4 張圖片，已配對 3 張）</span></div>
+            <div class="img-match-grid">
+              <div class="img-thumb ok">img_001<br>.png</div>
+              <div class="img-thumb ok">table_01<br>.jpg</div>
+              <div class="img-thumb ok">flow_01<br>.png</div>
+              <div class="img-thumb missing">adrenal<br>.jpg<br><span style="color:var(--accent);font-size:9px">待上傳</span></div>
+            </div>
+            <button class="btn btn-outline" style="font-size:12px">＋ 上傳缺少的圖片</button>
+          </div>
+          <div>
+            <div style="font-weight:600;margin-bottom:12px">③ 筆記 Metadata</div>
+            <div class="form-field"><label class="form-label">標題</label><input class="form-input" value="腎上腺疾病"></div>
+            <div class="form-field"><label class="form-label">Slug（URL 路徑）</label><input class="form-input" value="adrenal-diseases" style="font-family:var(--mono)"></div>
+            <div class="form-field"><label class="form-label">科別</label><select class="form-input"><option>腎臟內科</option><option>心臟內科</option><option>小兒科</option></select></div>
+            <div class="form-field"><label class="form-label">考卷</label><select class="form-input"><option>醫學(三)</option><option>醫學(四)</option></select></div>
+            <div class="form-field"><label class="form-label">重要性</label><select class="form-input"><option>常考</option><option>必讀</option><option>偶爾</option></select></div>
+            <div class="form-field"><label class="form-label">存取狀態</label><select class="form-input"><option>付費筆記</option><option>免費筆記</option></select></div>
+            <div style="display:flex;gap:10px;margin-top:8px">
+              <button class="btn btn-primary" style="flex:1">確認上傳</button>
+              <button class="btn btn-ghost" onclick="showSub('note-reader')">預覽用戶視角</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sub: Admin Users -->
+    <div id="sp-admin-users" class="sub-page hidden">
+      <div class="admin-page">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+          <div class="admin-page-title">用戶管理</div>
+          <div style="display:flex;gap:8px">
+            <input class="form-input" placeholder="搜尋 email..." style="width:220px">
+            <button class="btn btn-ghost">+ 手動開通</button>
+          </div>
+        </div>
+        <div class="admin-page-sub">管理用戶訂閱狀態，手動開通或延長存取。所有操作自動記錄於 audit log。</div>
+        <table class="admin-table">
+          <thead><tr><th>Email</th><th>方案</th><th>到期日</th><th>狀態</th><th>角色</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>leo@hospital.tw</td>
+              <td><span class="tag tag-yellow">早鳥</span></td>
+              <td>2027-05-17</td>
+              <td><span class="status-dot active"></span>有效</td>
+              <td><span class="tag tag-blue">Admin</span></td>
+              <td><button class="table-action-btn">編輯</button></td>
+            </tr>
+            <tr>
+              <td>chen**@gmail.com</td>
+              <td><span class="tag tag-yellow">早鳥</span></td>
+              <td>2027-05-17</td>
+              <td><span class="status-dot active"></span>有效</td>
+              <td><span class="tag tag-gray">User</span></td>
+              <td><button class="table-action-btn">延長</button> <button class="table-action-btn">升為Admin</button> <button class="table-action-btn danger">停權</button></td>
+            </tr>
+            <tr>
+              <td>wang**@ntuh.gov.tw</td>
+              <td><span class="tag tag-green" style="background:#E8F3F3;color:#3A6060">標準</span></td>
+              <td>2027-05-15</td>
+              <td><span class="status-dot active"></span>有效</td>
+              <td><span class="tag tag-gray">User</span></td>
+              <td><button class="table-action-btn">延長</button> <button class="table-action-btn danger">停權</button></td>
+            </tr>
+            <tr>
+              <td>lin**@yahoo.com</td>
+              <td><span class="tag tag-gray">免費</span></td>
+              <td>—</td>
+              <td><span class="status-dot expired"></span>未付費</td>
+              <td><span class="tag tag-gray">User</span></td>
+              <td><button class="table-action-btn" style="border-color:var(--green);color:var(--green)">手動開通</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /app-main -->
+</div><!-- /p-app -->
+
+<script>
+// ── State ──
+let currentPage = 'landing';
+let currentSub = 'notes-list';
+let isAdmin = false;
+let sidebarOpen = true;
+
+// ── Page routing ──
+function goPage(id) {
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.add('hidden');
+    p.style.display = '';
+  });
+  const el = document.getElementById('p-' + id);
+  el.classList.remove('hidden');
+  if (id === 'app') el.style.display = 'flex';
+  currentPage = id;
+  updateNav();
+  window.scrollTo(0, 0);
+}
+
+function goApp(subId) {
+  isAdmin = false;
+  updateAdminBar();
+  goPage('app');
+  showSub(subId);
+}
+
+function goAdmin(subId) {
+  isAdmin = true;
+  updateAdminBar();
+  goPage('app');
+  showSub(subId);
+  document.body.classList.add('is-admin');
+}
+
+function showSub(subId) {
+  document.querySelectorAll('.sub-page').forEach(s => s.classList.add('hidden'));
+  const el = document.getElementById('sp-' + subId);
+  if (el) el.classList.remove('hidden');
+  currentSub = subId;
+
+  // Topbar breadcrumb
+  const bc = document.getElementById('topbar-bc');
+  const labels = {
+    'notes-list': '<span onclick="showSub(\'notes-list\')">所有筆記</span>',
+    'note-reader': '<span onclick="showSub(\'notes-list\')">所有筆記</span> › <span>腎上腺疾病</span>',
+    'account': '<span>帳戶設定</span>',
+    'upgrade': '<span>升級訂閱</span>',
+    'admin-dashboard': '<span style="color:var(--accent)">管理後台</span>',
+    'admin-notes': '<span onclick="showSub(\'admin-dashboard\')">管理後台</span> › <span>筆記管理</span>',
+    'admin-upload': '<span onclick="showSub(\'admin-dashboard\')">管理後台</span> › <span>上傳筆記</span>',
+    'admin-users': '<span onclick="showSub(\'admin-dashboard\')">管理後台</span> › <span>用戶管理</span>',
+  };
+  if (bc) bc.innerHTML = labels[subId] || '';
+
+  // Admin edit button on reader
+  const fab = document.getElementById('admin-edit-fab');
+  if (fab) fab.classList.toggle('hidden', !(isAdmin && subId === 'note-reader'));
+
+  // Admin contextual button in admin bar
+  const ctx = document.getElementById('admin-edit-ctx');
+  if (ctx) {
+    if (isAdmin && subId === 'note-reader') {
+      ctx.innerHTML = '<span style="width:1px;height:20px;background:rgba(255,255,255,0.15);margin:0 8px;display:inline-block"></span><button class="ab-btn primary" onclick="showSub(\'admin-upload\')">✏️ 編輯此頁</button>';
+    } else {
+      ctx.innerHTML = '';
+    }
+  }
+
+  updateNav();
+}
+
+// ── Admin bar ──
+function updateAdminBar() {
+  const bar = document.getElementById('admin-bar');
+  if (isAdmin) {
+    bar.classList.remove('hidden');
+    document.body.classList.add('is-admin');
+  } else {
+    bar.classList.add('hidden');
+    document.body.classList.remove('is-admin');
+  }
+}
+
+function toggleAdmin() {
+  isAdmin = !isAdmin;
+  updateAdminBar();
+  if (!isAdmin && ['admin-dashboard','admin-notes','admin-upload','admin-users'].includes(currentSub)) {
+    showSub('notes-list');
+  }
+}
+
+// ── Sidebar ──
+function toggleSidebar() {
+  sidebarOpen = !sidebarOpen;
+  const sb = document.getElementById('app-sidebar');
+  sb.classList.toggle('collapsed', !sidebarOpen);
+}
+
+// ── Screen nav highlight ──
+function updateNav() {
+  document.querySelectorAll('.screen-nav button').forEach(b => b.classList.remove('active'));
+  const map = {
+    'landing': 'snav-landing',
+    'login': 'snav-login',
+    'register': 'snav-register',
+  };
+  const subMap = {
+    'notes-list': 'snav-notes-list',
+    'note-reader': 'snav-note-reader',
+    'account': 'snav-account',
+    'upgrade': 'snav-upgrade',
+    'admin-dashboard': 'snav-admin-dashboard',
+    'admin-notes': 'snav-admin-notes',
+    'admin-upload': 'snav-admin-upload',
+    'admin-users': 'snav-admin-users',
+  };
+  if (map[currentPage]) {
+    const el = document.getElementById(map[currentPage]);
+    if (el) el.classList.add('active');
+  }
+  if (subMap[currentSub] && currentPage === 'app') {
+    const el = document.getElementById(subMap[currentSub]);
+    if (el) el.classList.add('active');
+  }
+}
+
+// Init
+goPage('landing');
+</script>
+</body>
+</html>
